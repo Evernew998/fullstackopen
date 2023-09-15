@@ -14,7 +14,7 @@ sequenceDiagram
 
      browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
      activate server
-     server-->>browser: notes(HTML) document
+     server-->>browser: notes (HTML) document
      deactivate server
 
      Note right of browser: A link in the HTML code causes the browser to make another GET request to get the CSS file
@@ -38,5 +38,5 @@ sequenceDiagram
      server-->>browser: data.json
      deactivate server
 
-     Note right of browser: The JavaScript code uses the data from the JSON to render the list of notes, which now includes the new note 
+     Note right of browser: The JavaScript code uses the data from the JSON to render the list of notes using the DOM-API, which now includes the new note 
 ```
