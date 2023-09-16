@@ -10,7 +10,8 @@ sequenceDiagram
 
      Note right of browser: The browser sends the new note as the body of the POST request
 
-     Note left of server: The server creates a new note object based on the data it receives and adds it to the notes array. The server also asks the browser to make a new GET request and reload the page
+     Note left of server: The server creates a new note object based on the data it receives and adds it to the notes array.
+     Note left of server: The server also asks the browser to make a new GET request and reload the page
 
      browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
      activate server
