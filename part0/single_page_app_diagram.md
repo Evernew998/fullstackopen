@@ -8,7 +8,7 @@ sequenceDiagram
     server-->>browser: spa (HTML) document
     deactivate server
 
-    Note right of browser: A linkS in the HTML code causes the browser to make GET request to get the CSS file
+    Note right of browser: A link in the HTML code causes the browser to make GET request to get the CSS file
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
