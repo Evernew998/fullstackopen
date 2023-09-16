@@ -29,5 +29,5 @@ sequenceDiagram
     server-->>browser: data.json
     deactivate server
 
-    Note right of browser: The JavaSScript code uses the data from the JSON to render the list of notes using the DOM-API
+    Note right of browser: The JavaScript code uses the data from the JSON to render the list of notes using the DOM-API
 ```
