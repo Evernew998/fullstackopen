@@ -1,9 +1,20 @@
 import { useState } from 'react'
 
+const StatisticLine = ({text, value, punctuation}) => {
+  return (
+    <>
+      <tr>
+        <td>{text}</td>
+        <td>{value} {punctuation}</td>
+      </tr>
+    </>
+  )
+}
+
 const Button = (props) => {
-   return (
-    <button onClick={props.handleClick}>{props.text}</button>
-   )
+  return (
+   <button onClick={props.handleClick}>{props.text}</button>
+  )
 }
 
 const Statistics = (props) => {
@@ -11,19 +22,24 @@ const Statistics = (props) => {
   if (good != 0 || neutral != 0 || bad != 0) {
     return (
       <>
-        <h1>statistics</h1>
-        <p>good {good}</p>
-        <p>neutral {neutral}</p>
-        <p>bad {bad}</p>
-        <p>all {all}</p>
-        <p>average {avg}</p>
-        <p>positive {positivePercentage} %</p>
+        <table>
+          <tbody>
+            <StatisticLine text="good" value={good} punctuation={""} /> 
+            <StatisticLine text="neutral" value={neutral} punctuation={""} />  
+            <StatisticLine text="bad" value={bad} punctuation={""} />  
+            <StatisticLine text="all" value={all} punctuation={""} /> 
+            <StatisticLine text="average" value={avg} punctuation={""} />
+            <StatisticLine text="positive" value={positivePercentage} punctuation={"%"} />
+          </tbody>
+        </table>
       </>
     )
   }
   else {
     return (
-      <p>No feedback given</p>
+      <>
+        <p>No feedback given</p>
+      </>
     )
   }
 }
@@ -41,9 +57,10 @@ const App = () => {
   return (
     <div>
       <h1>give feedback</h1>
-      <Button text="good" handleClick={() => setGood(good + 1)}/>
-      <Button text="neutral" handleClick={() => setNeutral(neutral + 1)}/>
-      <Button text="bad" handleClick={() => setBad(bad + 1)}/>
+      <Button text="good" handleClick={() => setGood(good + 1)} />
+      <Button text="neutral" handleClick={() => setNeutral(neutral + 1)} />
+      <Button text="bad" handleClick={() => setBad(bad + 1)} />
+      <h1>statistics</h1>
       <Statistics 
         good={ good } 
         neutral={ neutral } 
