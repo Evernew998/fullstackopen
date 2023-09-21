@@ -23,18 +23,25 @@ const App = () => {
   const handleClickVote = () => {
     const copy = [...points]
     copy[selected] += 1
-    console.log(copy)
     setPoints(copy)
   }
 
+  const max = Math.max(...points)
+  const indexMax = points.indexOf(max)
+
   return (
     <div>
+      <h2>Anecdote of the day</h2>
       {anecdotes[selected]}
       <br />
       has {points[selected]} votes
       <br />
       <button onClick={handleClickVote}>vote</button>
       <button onClick={handleClickNext}>next anecdote</button>
+      <h2>Anecdote with most votes</h2>
+      {anecdotes[indexMax]}
+      <br />
+      has {max} votes
     </div>
   )
 }
