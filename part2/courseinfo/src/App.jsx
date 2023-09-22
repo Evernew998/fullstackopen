@@ -1,20 +1,21 @@
-const Part = ({ parts }) => {
-
-  const partsInPTag = parts.map(part =>
-    <p key={part.id}>{part.name} {part.exercises}</p>
+const Part = ({ name, exercises }) => {
+  return (
+    <>
+      <p>{name} {exercises}</p>
+    </>
   )
-
-  console.log("Array of parts in p tag", partsInPTag)
-
-  return partsInPTag
 }
 
 const Content = ({ parts }) => {
-  return (
-    <>
-      <Part parts={parts} />
-    </>
+  const partsComponents = parts.map(part =>
+    <Part
+      key={part.id} 
+      name={part.name}
+      exercises={part.exercises}
+    />
   )
+
+  return <>{partsComponents}</>
 }
 
 const Header = ({ name }) => {
