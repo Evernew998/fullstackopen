@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
@@ -73,6 +72,24 @@ const App = () => {
     setPersonsToBeShown(personsFiltered)
   }
 
+  const handleDeletePerson = (id, name) => {
+    if (window.confirm(`Delete ${name}?`)) {
+      console.log(`Delete ${name}`)
+
+      personService
+        .deletePerson(id, name)
+        .then((response)=> {
+          setPersons(persons.filter(person => id !== person.id))
+          setPersonsToBeShown(persons.filter(person => id !== person.id))
+        })
+        .catch(error => {
+          alert(`${name} was already deleted`)
+          setPersons(persons.filter(person => id !== person.id))
+          setPersonsToBeShown(persons.filter(person => id !== person.id))
+        })
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -86,7 +103,10 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons personsToBeShown={personsToBeShown}/>
+      <Persons 
+        personsToBeShown={personsToBeShown}
+        handleDeletePerson={handleDeletePerson}
+      />
     </div>
   )
 }
