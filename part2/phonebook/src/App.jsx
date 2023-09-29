@@ -49,10 +49,11 @@ const App = () => {
 
     personService
       .createPerson(personObject)
-      .then(response => console.log(response))
-
-    setPersons(persons.concat(personObject))
-    setPersonsToBeShown(personsToBeShown.concat(personObject))
+      .then(response => {
+        setPersons(persons.concat(response))
+        setPersonsToBeShown(personsToBeShown.concat(response))
+        console.log(response)
+      })
   }
 
   const handleNameChange = (event) => {
