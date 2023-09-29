@@ -3,6 +3,7 @@ import axios from 'axios'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -12,18 +13,15 @@ const App = () => {
   const [personsToBeShown, setPersonsToBeShown] = useState([])
 
   useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promised fulfilled')
-        setPersons(response.data)
-        setPersonsToBeShown(response.data)
+    personService
+      .getPersons()
+      .then(initialPersons => {
+        setPersons(initialPersons)
+        setPersonsToBeShown(initialPersons)
       })
   }, [])
-  console.log('render', persons.length, 'people')
 
-  const addName = (event) => {
+  const addPerson = (event) => {
     event.preventDefault()
 
     if (newName === '' || newNumber === '') {
@@ -49,6 +47,10 @@ const App = () => {
       number: newNumber
     }
 
+    personService
+      .createPerson(personObject)
+      .then(response => console.log(response))
+
     setPersons(persons.concat(personObject))
     setPersonsToBeShown(personsToBeShown.concat(personObject))
   }
@@ -58,7 +60,6 @@ const App = () => {
   }
 
   const handleNumberChange = (event) => {
-    console.log(event.target.value)
     setNewNumber(event.target.value)
   }
 
@@ -77,7 +78,7 @@ const App = () => {
       <Filter filter={filter} handleNameFilter={handleNameFilter}/>
       <h2>add a new</h2>
       <PersonForm 
-        addName={addName} 
+        addPerson={addPerson} 
         newName={newName} 
         handleNameChange={handleNameChange} 
         newNumber={newNumber}
