@@ -56,12 +56,23 @@ const App = () => {
 
             setPersons(persons.map(person => person.id !== updatedPerson.id ? person : updatedPerson))
             setPersonsToBeShown(persons.map(person => person.id !== updatedPerson.id ? person : updatedPerson))
+            setMessage(`Successfully updated phone number for ${newName}`)
+            setMessageType('success')
+            setTimeout(() => {
+              setMessage(null)
+              setMessageType('')
+            }, 5000);
           })
           .catch(error => {
             console.log(error)
-            window.alert(`AxiosError: {message: 'Request failed with status code 404'} Code: ERR_BAD_REQUEST`)
             setPersons(persons.filter(person => person.id !== id))
             setPersonsToBeShown(persons.filter(person => person.id !== id))
+            setMessage(`Information of ${newName} has already been removed from server`)
+            setMessageType('error')
+            setTimeout(() => {
+              setMessage(null)
+              setMessageType('')
+            }, 5000);
           })
       }
       return
@@ -81,7 +92,7 @@ const App = () => {
         setMessageType('success')
         setTimeout(() => {
           setMessage(null)
-          setMessageType('default')
+          setMessageType('')
         }, 5000);
       })
   }
