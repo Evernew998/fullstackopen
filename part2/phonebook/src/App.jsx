@@ -54,6 +54,12 @@ const App = () => {
             setPersons(persons.map(person => person.id !== updatedPerson.id ? person : updatedPerson))
             setPersonsToBeShown(persons.map(person => person.id !== updatedPerson.id ? person : updatedPerson))
           })
+          .catch(error => {
+            console.log(error)
+            window.alert(`AxiosError: {message: 'Request failed with status code 404'} Code: ERR_BAD_REQUEST`)
+            setPersons(persons.filter(person => person.id !== id))
+            setPersonsToBeShown(persons.filter(person => person.id !== id))
+          })
       }
       return
     }
