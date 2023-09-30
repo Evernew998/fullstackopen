@@ -28,22 +28,39 @@ const App = () => {
       return
     }
 
+    const personObject = {
+      name: newName,
+      number: newNumber
+    }
+
     const personsNames = persons.map(person => person.name)
     const personsNumbers = persons.map(person => person.number)
 
     if (personsNames.includes(newName)) {
-      window.alert(`${newName} is already added to phonebook`)
+      if (personsNumbers.includes(newNumber)) {
+        window.alert(`${newName} is already added to phonebook`)
+        return
+      }
+
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        const id = persons[personsNames.indexOf(newName)].id
+        personService
+          .updatePhoneNumber(id, personObject)
+          .then(updatedPerson => {
+            console.log(updatedPerson)
+            console.log(persons)
+            console.log(persons.map(person => person.id !== updatedPerson.id ? person : updatedPerson))
+
+            setPersons(persons.map(person => person.id !== updatedPerson.id ? person : updatedPerson))
+            setPersonsToBeShown(persons.map(person => person.id !== updatedPerson.id ? person : updatedPerson))
+          })
+      }
       return
     }
 
     if (personsNumbers.includes(newNumber)) {
       window.alert(`${newNumber} is already added to phonebook`)
       return
-    }
-
-    const personObject = {
-      name: newName,
-      number: newNumber
     }
 
     personService
