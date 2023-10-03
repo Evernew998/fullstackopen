@@ -12,8 +12,11 @@ function App() {
     axios
       .get('https://studies.cs.helsinki.fi/restcountries/api/all')
       .then(response => {
-        console.log(response.data)
-        setCountries(response.data)
+        const countriesModified = response.data.map(country => {
+          return {...country, showData: false}
+        })
+        console.log(countriesModified)
+        setCountries(countriesModified)
         setCountryNames(response.data.map(country => country.name.common))
       })
   }, [])
@@ -31,17 +34,27 @@ function App() {
     if (countryNames === null) {
       return
     }
-    
-    const countryFiltered = countryNames.filter(country => country.toLowerCase().includes(event.target.value.trim().toLowerCase()))
+
+    const countryObjects = countries.filter(country => country.name.common.toLowerCase().includes(event.target.value.trim().toLowerCase()))
     setValue(event.target.value)
-    setCountriesToShow(countryFiltered)
+    setCountriesToShow(countryObjects)
+  }
+
+  const handleShowData = (country) => {
+    console.log(country)
+    setCountries(
+      countries.map(nation => nation.name.common === country.name.common ? {...nation, showData: !nation.showData} : nation) 
+    )
+    setCountriesToShow(
+      countriesToShow.map(nation => nation.name.common === country.name.common ? {...nation, showData: !nation.showData} : nation) 
+    )
   }
 
   return (
     <div>
       find countries
       <input type="text" value={value} onChange={handleChange}/>
-      <ShowCountries countriesToShow={countriesToShow} countries={countries}/>
+      <ShowCountries countriesToShow={countriesToShow} handleShowData={handleShowData}/>
     </div>
   )
 }
