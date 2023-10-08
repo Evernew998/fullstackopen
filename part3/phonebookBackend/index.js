@@ -69,6 +69,16 @@ app.post('/api/persons', (request, response) => {
         })
     }
 
+    const names = persons.map(person => person.name)
+
+    console.log(names)
+
+    if (names.includes(body.name)) {
+        return response.status(400).json({
+            error: 'name must be unique'
+        })
+    }
+
     const id = Math.floor(Math.random() * 1000000)
     console.log(id)
 
